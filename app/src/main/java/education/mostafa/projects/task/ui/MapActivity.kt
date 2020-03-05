@@ -2,26 +2,21 @@ package education.mostafa.projects.task.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
-import android.location.LocationManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
-import android.provider.Settings
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.android.gms.tasks.OnFailureListener
@@ -29,7 +24,6 @@ import education.mostafa.projects.task.R
 import education.mostafa.projects.task.helper.Constants
 import education.mostafa.projects.task.helper.Constants.MY_PERMISSION_ACCESS_COARSE_LOCATION
 import education.mostafa.projects.task.views.MapsView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
 
@@ -42,13 +36,18 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
     var polyLines = ArrayList<Polyline>()
     var OneAdded: Boolean = false
     var TwoAdded: Boolean = false
+    var PolylineAdded: Boolean = false
     var doubleBackToExitPressedOnce: Boolean = false
+    lateinit var latLngBoundsBuilder: LatLngBounds.Builder
+    lateinit var latLngBounds : LatLngBounds
+    val padding:Int = 10
+    var clickMap: Int = 1
+    lateinit var cu:CameraUpdate
 
 
     lateinit var map: MapView
     lateinit var go_txt: TextView
     lateinit var twoScreenTxt:TextView
-    var clickMap: Int = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -224,9 +223,8 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
                         clickMap = 3
                     } else if (clickMap == 3) {
                         if (p0 != null) {
-                            for (i in 0 until polyLines.size) {
-                                polyLines.get(i).remove()
-                            }
+                            polyline.remove()
+                            PolylineAdded = false
                             val markerOptions = MarkerOptions().position(p0)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                             marker1.remove()
@@ -264,10 +262,19 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
                 if(OneAdded.equals(false) || TwoAdded.equals(false)){
                     Toast.makeText(this , R.string.markersWarn , Toast.LENGTH_SHORT).show()
                 }else{
-                    polyline = mGoogleMap!!.addPolyline(
-                        PolylineOptions().add(marker1.position).add(marker2.position).color(R.color.colorRed)
-                    )
-                    polyLines.add(polyline)
+                    if(!PolylineAdded){
+                        polyline = mGoogleMap!!.addPolyline(
+                            PolylineOptions().add(marker1.position).add(marker2.position).color(R.color.colorRed)
+                        )
+                        latLngBoundsBuilder = LatLngBounds.builder()
+                        latLngBoundsBuilder.include(marker1.position)
+                        latLngBoundsBuilder.include(marker2.position)
+
+                        latLngBounds = latLngBoundsBuilder.build()
+                        cu = CameraUpdateFactory.newLatLngBounds(latLngBounds , padding)
+                        mGoogleMap!!.animateCamera(cu)
+                        PolylineAdded = true
+                    }
                 }
             }
             R.id.twoScreenTxt -> {
