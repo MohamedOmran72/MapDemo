@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Task</string>
+    <string name="KEY">AIzaSyDAa8Uoi-A6PT4UmF-Eu014tKY7Q0hybCE</string>
+    <string name="GO">GO</string>
+    <string name="markersWarn">Add markers , Plz</string>
+    <string name="gpsWarn">Gps not enabled</string>
+    <string name="locationSetting">Open location settings</string>
+    <string name="Cancel">Cancel</string>
+    <string name="twoS">Two Screen</string>
+    <string name="Welcome">Welcome</string>
+    <string name="Error">Error</string>
+</resources>

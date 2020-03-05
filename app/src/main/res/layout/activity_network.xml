@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.NetworkActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/_8sdp">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/app_name"
+            android:textColorHint="@color/colorGrey"
+            android:textSize="19sp"
+            android:lines="1"
+            android:singleLine="true"
+            android:textColor="@color/colorBlue"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loading_lyt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/colorLoading"
+        android:visibility="gone">
+
+        <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            app:crs_pl_bg_color="@color/colorGreen"
+            app:crs_pl_fg_color="@color/colorGreen"
+            app:crs_pl_style="ball_beat" />
+    </LinearLayout>
+
+
+</FrameLayout>

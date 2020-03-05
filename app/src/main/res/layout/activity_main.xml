@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context=".ui.MapActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:layout_margin="@dimen/_10sdp" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/go_txt"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_margin="@dimen/_2sdp"
+            android:background="@drawable/blue_eg"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:text="@string/GO"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/twoScreenTxt"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:text="@string/twoS"
+            android:textColor="@color/colorRed"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+
+
+
+</FrameLayout>
