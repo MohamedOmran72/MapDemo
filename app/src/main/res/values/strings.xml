@@ -9,4 +9,5 @@
     <string name="twoS">Two Screen</string>
     <string name="Welcome">Welcome</string>
     <string name="Error">Error</string>
+    <string name="exitW">Click again to exit</string>
 </resources>

@@ -12,6 +12,7 @@ import android.location.LocationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.view.View
@@ -41,6 +42,7 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
     var polyLines = ArrayList<Polyline>()
     var OneAdded: Boolean = false
     var TwoAdded: Boolean = false
+    var doubleBackToExitPressedOnce: Boolean = false
 
 
     lateinit var map: MapView
@@ -53,7 +55,7 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkPermission();
+            checkPermission()
         }
         initView()
         initClient()
@@ -117,7 +119,7 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
             mFusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
                     val lat = location!!.latitude
-                    val long = location!!.longitude
+                    val long = location.longitude
                     val currentUserLatLang = LatLng(lat, long)
                     mGoogleMap!!.clear()
                     mGoogleMap!!.animateCamera(
@@ -194,7 +196,7 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
                 override fun onMapClick(p0: LatLng?) {
                     if (clickMap == 1) {
                         if (p0 != null) {
-                            val markerOptions = MarkerOptions().position(p0!!).title("marker1")
+                            val markerOptions = MarkerOptions().position(p0).title("marker1")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                             marker1 = mGoogleMap!!.addMarker(markerOptions)
                             OneAdded = true
@@ -208,7 +210,7 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
                         clickMap = 2
                     } else if (clickMap == 2) {
                         if (p0 != null) {
-                            val markerOptions = MarkerOptions().position(p0!!).title("marker2")
+                            val markerOptions = MarkerOptions().position(p0).title("marker2")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                             marker2 = mGoogleMap!!.addMarker(markerOptions)
                             TwoAdded = true
@@ -225,7 +227,7 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
                             for (i in 0 until polyLines.size) {
                                 polyLines.get(i).remove()
                             }
-                            val markerOptions = MarkerOptions().position(p0!!)
+                            val markerOptions = MarkerOptions().position(p0)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                             marker1.remove()
                             marker1 = mGoogleMap!!.addMarker(markerOptions)
@@ -243,6 +245,17 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
             })
 
         })
+    }
+
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            this.finishAffinity()
+            return
+        } else {
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(this , getString(R.string.exitW) , Toast.LENGTH_SHORT).show()
+            Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false } , 2000)
+        }
     }
 
     override fun onClick(v: View?) {

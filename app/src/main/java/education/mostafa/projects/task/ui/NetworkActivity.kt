@@ -1,5 +1,6 @@
 package education.mostafa.projects.task.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -59,5 +60,9 @@ class NetworkActivity : AppCompatActivity(), NetworkView {
 
     override fun hideLoading() {
         loading.visibility = View.GONE
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this , MapActivity::class.java))
     }
 }
