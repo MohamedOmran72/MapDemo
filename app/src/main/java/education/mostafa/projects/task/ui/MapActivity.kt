@@ -222,9 +222,11 @@ class MapActivity : AppCompatActivity(), MapsView, View.OnClickListener {
                         )
                         clickMap = 3
                     } else if (clickMap == 3) {
-                        if (p0 != null) {
+                        if(PolylineAdded){
                             polyline.remove()
                             PolylineAdded = false
+                        }
+                        if (p0 != null) {
                             val markerOptions = MarkerOptions().position(p0)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                             marker1.remove()
