@@ -13,8 +13,6 @@
         android:roundIcon="@mipmap/ic_task"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.NetworkActivity"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.MapActivity"
             android:screenOrientation="portrait">

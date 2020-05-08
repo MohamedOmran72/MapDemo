@@ -49,6 +49,7 @@
             android:textColor="@color/colorRed"
             android:gravity="center"
             android:textStyle="bold"
+            android:visibility="gone"
             android:textSize="20sp"/>
     </LinearLayout>
 

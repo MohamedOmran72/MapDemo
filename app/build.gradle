@@ -16,6 +16,14 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            storeFile file("map_demo.jks")
+            storePassword '123456789'
+            keyAlias 'demo'
+            keyPassword '123456789'
+        }
+    }
     repositories {
         maven {
             url "http://dl.bintray.com/lukaville/maven"
@@ -30,8 +38,10 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             multiDexEnabled true
+            signingConfig signingConfigs.release
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
