@@ -11,5 +11,5 @@
                   https://blog.mindorks.com/how-to-add-uber-car-animation-in-android-app
 
 
-<img src="https://user-images.githubusercontent.com/25991597/81448820-5455ba80-917f-11ea-9dd0-b581aade9073.png" width="200" height="400" />
+<img src="https://user-images.githubusercontent.com/25991597/81448820-5455ba80-917f-11ea-9dd0-b581aade9073.png" width="300" height="500" />
 
